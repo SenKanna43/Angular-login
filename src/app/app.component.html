@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="form" id="login">
+    <h1 class="form__title">Login</h1>
+    <div class="form__input-group">
+      <input type="text" class="form__input" autofocus placeholder="Username" id="usernameinput"[(ngModel)]="username">
+
+    </div>
+    <div class="form__input-group">
+      <input type="password" class="form__input" autofocus placeholder="Password" id="passwordInput" [(ngModel)]="password">
+      <div class="padding"></div>
+      <a href="#"><button class="form__button" id="loginButton">Login</button></a>
+    </div>
+  </div>
+  <button class="btn btn-primary " (click)="onSubmit()">Submit</button>
+</div>
