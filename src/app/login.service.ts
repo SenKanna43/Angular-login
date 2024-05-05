@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,11 @@ export class LoginService {
 
   http = inject(HttpClient)
 
-  onLoginAuthentication(obj:any){
-    return this.http.post('https://fakestoreapi.com/auth/login',obj)
+  onLoginAuthentication(obj:any): Observable<Response>{
+    return this.http.post<Response>('https://fakestoreapi.com/auth/login', obj)
+  }
+
+  addUser(obj: Object){
+    return this.http.post<Response>('https://fakestoreapi.com/users',obj)
   }
 }

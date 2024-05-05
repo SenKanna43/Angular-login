@@ -1,0 +1,85 @@
+<div class="container">
+  <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Add 
+</button>
+
+<table class="table table-hover">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Username </th>
+        <th scope="col">Firstname</th>
+        <th scope="col">Lastname</th>
+        <th scope="col">Email</th>
+        <th scope="col">city</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of showUsersList; track $index) {
+        <tr>
+          <th>{{$index + 1}}</th>
+          <td>{{item.username}}</td>
+          <td>{{item.name.firstname}}</td>
+          <td>{{item.name.lastname}}</td>
+          <td>{{item.email}}</td>
+          <td>{{item.address.city}}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</table>
+
+<!-- Modal -->
+<div  #myModal class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add User</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <!-- user-form.component.html -->
+
+<form [formGroup]="userForm" >
+  <!-- First Half of Form -->
+  <div style="float: left; width: 50%;">
+    <label>Email</label>
+    <input type="email" formControlName="email" name="email">
+    <label>Username</label>
+    <input type="text" formControlName="username" name="username">
+    <label>Password</label>
+    <input type="password" formControlName="password" name="password">
+    <label>First Name</label>
+    <input type="text" formControlName="firstname" name="firstname">
+    <label>Last Name</label>
+    <input type="text" formControlName="lastname" name="lastname">
+  </div>
+  <!-- Second Half of Form -->
+  <div style="float: left; width: 50%;">
+    <label>City</label>
+    <input type="text" formControlName="city" name="city">
+    <label>Street</label>
+    <input type="text" formControlName="street" name="street">
+    <label>Number</label>
+    <input type="number" formControlName="number" name="number">
+    <label>Zipcode</label>
+    <input type="text" formControlName="zipcode" name="zipcode">
+    <label>Latitude</label>
+    <input type="text" formControlName="lat" name="lat">
+    <label>Longitude</label>
+    <input type="text" formControlName="long" name="long">
+  </div>
+</form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="postUser()" >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
