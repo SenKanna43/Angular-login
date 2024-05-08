@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, TemplateRef, ViewChild, inject } from '@angular/core';
 import { ApiService } from './api.service';
 import {
   FormBuilder,
@@ -6,19 +6,24 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-crud',
   standalone: true,
   imports: [ReactiveFormsModule],
+  providers: [BsModalService],
   templateUrl: './crud.component.html',
   styleUrl: './crud.component.css',
 })
 export class CrudComponent {
   userForm!: FormGroup;
-  constructor(private formBuilder: FormBuilder) {}
   _service = inject(ApiService);
   @ViewChild('myModal') myModal!: ElementRef;
+
+  modalRef?: BsModalRef;
+  constructor(private modalService: BsModalService, private formBuilder: FormBuilder) { }
+
 
   ngOnInit(): void {
     this.getAllUsers();
@@ -66,10 +71,16 @@ export class CrudComponent {
     this._service.postUser(this.userForm.value).subscribe({
       next: (response) => {
         console.log(response);
+        this.userForm.reset()
+        this.modalRef?.hide();
       },
       error: (err) => {
         console.log(err.error);
       },
     });
+  }
+
+  openModal(template: TemplateRef<void>) {
+    this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
   }
 }
